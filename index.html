@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1.0">
+	<meta charset="UTF-8" />
+	<title>首页</title>
+	<link rel="stylesheet" href="css/reset.css" />
+	<link rel="stylesheet" type="text/css" href="css/Alert.css"/>
+	<script src="js/jquery-1.10.min.js"></script>
+	<script src="js/Alert.js"></script>
+	<style>
+		.ceshi{width: 150px;height: 50px;line-height: 50px;border-radius: 5px;background: green;text-align: center;color: #fff;font-size: 14px;}
+	</style>
+</head>
+<body>
+	<div class="ceshi">测试按钮</div>
+</body>
+<script>
+/*参数说明
+    		 width:'auto',   //弹窗宽度
+    		height:'auto',   //弹窗高度
+    		  type:'wait',   //弹窗类型，默认为等待
+    	   buttons:null,    //按钮组件，默认为没有按钮
+       delayClose:null,     //弹窗延时自动关闭
+       contentText:null,    //弹窗提示文字
+       delayCallback:null,  //延时关闭后的回调函数
+*/
+/*使用示例*/
+$(".ceshi").click(function(){
+	var p=$.Alert({
+		  width:250,
+		   type:'warning',
+		buttons:[{
+			    type:'red',
+			    text:'删除',
+			callback:function(){
+				var s=$.Alert({
+					type:'warning',
+					contentText:"将彻底删除这条记录，是否继续？",
+					buttons:[{
+						type:"red",
+						text:"继续删除",
+						callback:function(){
+							p.close();
+							s.close();
+							var k=$.Alert({
+								delayClose:2000,
+								contentText:"正在删除",
+								delayCallback:function(){
+									var j=$.Alert({
+										type:"success",
+										delayClose:2000,
+										contentText:"删除成功",
+									})
+								}
+							})
+						}
+					},{
+						text:"不删除",
+						type:"green",
+						callback:function(){
+							p.close();
+							s.close();
+						}
+					}]
+				})
+				return false;
+			}
+		},{
+			type:'green',
+			text:'不删除'
+		}],
+		contentText:"是否删除此条记录？",
+	})
+})
+	
+</script>
+</html>
